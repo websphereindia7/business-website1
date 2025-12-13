@@ -40,8 +40,8 @@ export default function Projects() {
       {/* Section Title */}
       <motion.h2
         className="text-4xl md:text-5xl font-bold text-gray-900 text-center mb-16"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, x: 20 }}
+        whileInView={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.7 }}
         viewport={{ once: true }}
       >
@@ -56,14 +56,19 @@ export default function Projects() {
           <motion.div
             key={index}
             className={`relative rounded-3xl overflow-hidden cursor-pointer bg-gradient-to-br ${project.gradient} ${project.shadow} p-1`}
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: index * 0.2 }}
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{
+              duration: 0.7,
+              delay: index * 0.2,
+              ease: 'easeOut',
+            }}
             viewport={{ once: true }}
             whileHover={{
-              scale: 1.05,
-              y: -5,
-              boxShadow: '0 20px 40px rgba(0,0,0,0.2)',
+              scale: [1, 1.04, 1.02], // subtle pulse
+              y: -3,
+              boxShadow: '0 18px 35px rgba(0,0,0,0.18)',
+              transition: { duration: 0.4, ease: 'easeInOut' },
             }}
           >
             <div className="bg-white rounded-3xl overflow-hidden">
@@ -72,7 +77,7 @@ export default function Projects() {
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-72 object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 rounded-3xl"></div>
               </div>
@@ -81,7 +86,7 @@ export default function Projects() {
               <div className="p-7 text-left">
                 <motion.h3
                   className="text-2xl font-semibold mb-3 text-gray-900"
-                  whileHover={{ scale: 1.04 }}
+                  whileHover={{ scale: 1.03 }}
                 >
                   {project.title}
                 </motion.h3>

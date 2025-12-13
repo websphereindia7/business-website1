@@ -35,7 +35,7 @@ export default function About() {
   return (
     <section
       id="about"
-      className="min-h-screen scroll-mt-32 py-24 px-6 bg-gray-50 relative overflow-hidden"
+      className="relative pt-28 pb-10 px-6 bg-gray-50 overflow-hidden"
     >
       {/* Floating Background Shapes */}
       <motion.div

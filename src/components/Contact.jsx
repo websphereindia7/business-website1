@@ -75,7 +75,7 @@ export default function Contact() {
     <>
       <section
         id="contact"
-        className="py-24 px-6 bg-gray-50 border-t border-gray-200"
+        className="pt-[6.5rem] pb-24 px-6 bg-gray-50 border-t border-gray-200"
       >
         {/* TITLE */}
         <motion.h2

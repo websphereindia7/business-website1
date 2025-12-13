@@ -2,7 +2,9 @@
 import Hero from './Hero';
 import About from './About';
 import Services from './Services';
+import Features from './Features'; // ← add this
 import Projects from './Projects';
+import Testimonials from './Testimonials'; // <-- import here
 import Contact from './Contact';
 
 export default function Home() {
@@ -11,22 +13,13 @@ export default function Home() {
       <div id="home">
         <Hero />
       </div>
-
-      <div id="about">
-        <About />
-      </div>
-
-      <div id="services">
-        <Services />
-      </div>
-
-      <div id="projects">
-        <Projects />
-      </div>
-
-      <div id="contact">
-        <Contact />
-      </div>
+      <About />
+      <Services />
+      <Features /> {/* NEW SECTION HERE */}
+      <Testimonials /> {/* Add here */}
+      <Projects />
+      <Testimonials /> {/* added */}
+      <Contact />
     </div>
   );
 }

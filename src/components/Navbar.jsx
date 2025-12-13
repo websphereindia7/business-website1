@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
 
@@ -11,24 +10,22 @@ export default function Navbar() {
     { name: 'Home', id: 'home' },
     { name: 'About', id: 'about' },
     { name: 'Services', id: 'services' },
+    { name: 'Features', id: 'features' },
     { name: 'Projects', id: 'projects' },
+    { name: 'Testimonials', id: 'testimonials' },
     { name: 'Contact', id: 'contact' },
   ];
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-
       let current = 'home';
       const scrollPos = window.scrollY + 150;
 
       menuItems.forEach((item) => {
         const section = document.getElementById(item.id);
-
         if (section) {
           const top = section.offsetTop - 200;
           const bottom = top + section.offsetHeight;
-
           if (scrollPos >= top && scrollPos < bottom) {
             current = item.id;
           }
@@ -40,7 +37,7 @@ export default function Navbar() {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [menuItems]);
+  }, []);
 
   const scrollToSection = (id) => {
     if (id === 'home') {
@@ -61,45 +58,48 @@ export default function Navbar() {
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        scrolled
-          ? 'py-3 bg-black/70 backdrop-blur-xl shadow-lg'
-          : 'py-6 bg-white/10 backdrop-blur-md'
-      }`}
+      className="fixed top-0 left-0 w-full z-50 bg-primary py-3 shadow-lg"
     >
       <nav className="max-w-7xl mx-auto flex items-center justify-between px-6">
         {/* Logo */}
         <h1
-          className="text-3xl font-extrabold text-white tracking-wide cursor-pointer"
+          className="text-3xl font-extrabold tracking-wide cursor-pointer"
           onClick={() => scrollToSection('home')}
         >
-          <span className="text-primary">CodeVista</span> Digital
+          <span className="text-white">CodeVista</span>{' '}
+          <span className="text-blue-600">Digital</span>
         </h1>
 
         {/* Desktop Menu */}
-        <ul className="hidden md:flex gap-10 text-white text-lg font-medium">
+        <ul className="hidden md:flex gap-10 text-lg font-medium">
           {menuItems.map((item) => (
             <li
               key={item.id}
-              className={`cursor-pointer transition-all ${
-                activeSection === item.id ? 'text-primary font-semibold' : ''
-              }`}
+              className="relative cursor-pointer pb-1 transition-all"
               onClick={() => scrollToSection(item.id)}
             >
-              {item.name}
+              <span
+                className={`transition-all ${
+                  activeSection === item.id
+                    ? 'text-black font-semibold after:w-full'
+                    : 'text-white hover:text-gray-200 after:w-0'
+                } after:content-[""] after:block after:h-0.5 after:bg-black after:transition-all`}
+              >
+                {item.name}
+              </span>
             </li>
           ))}
         </ul>
 
-        {/* CTA */}
+        {/* Desktop CTA Button */}
         <button
           onClick={() => scrollToSection('services')}
-          className="hidden md:inline-block bg-primary px-6 py-2 rounded-lg text-white text-lg font-semibold hover:bg-blue-700 transition"
+          className="hidden md:inline-block bg-blue-600 px-6 py-2 rounded-lg text-white text-lg font-semibold hover:bg-blue-500 transition"
         >
           Get Started
         </button>
 
-        {/* Mobile Menu Toggle */}
+        {/* Mobile Menu Button */}
         <button
           className="md:hidden text-white text-3xl"
           onClick={() => setOpen(!open)}
@@ -113,29 +113,34 @@ export default function Navbar() {
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="md:hidden bg-black/80 backdrop-blur-xl border-t border-white/10"
+          className="md:hidden bg-primary border-t border-blue-700"
         >
-          <ul className="flex flex-col text-white text-lg px-6 py-4 space-y-4">
+          <ul className="flex flex-col text-lg px-6 py-4 space-y-4">
             {menuItems.map((item) => (
               <li
                 key={item.id}
-                className={`cursor-pointer hover:text-primary transition ${
-                  activeSection === item.id ? 'text-primary font-semibold' : ''
-                }`}
+                className="relative cursor-pointer pb-1 transition-all"
                 onClick={() => scrollToSection(item.id)}
               >
-                {item.name}
+                <span
+                  className={`transition-all ${
+                    activeSection === item.id
+                      ? 'text-black font-semibold after:w-full'
+                      : 'text-white hover:text-gray-200 after:w-0'
+                  } after:content-[""] after:block after:h-0.5 after:bg-black after:transition-all`}
+                >
+                  {item.name}
+                </span>
               </li>
             ))}
 
-            <li>
-              <button
-                className="w-full bg-primary py-2 rounded-md mt-2 font-semibold text-white hover:bg-blue-700 transition"
-                onClick={() => scrollToSection('services')}
-              >
-                Get Started
-              </button>
-            </li>
+            {/* Mobile CTA */}
+            <button
+              className="w-full bg-blue-600 py-2 rounded-md mt-2 font-semibold text-white hover:bg-blue-500 transition"
+              onClick={() => scrollToSection('services')}
+            >
+              Get Started
+            </button>
           </ul>
         </motion.div>
       )}
