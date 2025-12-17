@@ -19,15 +19,17 @@ export default function ScrollToTop() {
   };
 
   return (
-    <>
-      {showScroll && (
-        <button
-          onClick={scrollToTop}
-          className="fixed bottom-6 right-6 z-50 bg-gray-800 text-white p-3 rounded-full shadow-lg hover:bg-gray-700 hover:scale-110 transition"
-        >
-          <FaArrowUp size={20} />
-        </button>
-      )}
-    </>
+    <button
+      onClick={scrollToTop}
+      aria-label="Scroll to top"
+      className={`fixed bottom-6 right-6 z-50 
+        bg-gray-800 text-white p-3 rounded-full shadow-lg
+        transition-all duration-300
+        hover:bg-gray-700 hover:scale-110
+        ${showScroll ? 'opacity-100' : 'opacity-0 pointer-events-none'}
+      `}
+    >
+      <FaArrowUp size={18} />
+    </button>
   );
 }

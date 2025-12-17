@@ -1,193 +1,182 @@
 import { useState, useRef, useEffect } from 'react';
-import { motion, useMotionValue } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { FaStar, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-
-import client1 from '../assets/testimonials/client1.jpg';
-import client2 from '../assets/testimonials/client2.jpg';
-import client3 from '../assets/testimonials/client3.jpg';
-import client4 from '../assets/testimonials/client4.jpg';
-import client5 from '../assets/testimonials/client5.jpg';
-import client6 from '../assets/testimonials/client6.jpg';
-import client7 from '../assets/testimonials/client7.jpg';
 
 export default function Testimonials() {
   const testimonials = [
     {
-      name: 'Arjun Mehra',
-      company: 'Mehra Tech Solutions',
-      img: client1,
+      name: 'Sneha Patil',
+      company: 'NextGen Digital Labs',
+      img: '/images/testimonials/client1.webp',
       quote:
-        'Amazing work! The website delivered was modern, fast, and perfectly matched our brand identity.',
+        'Amazing work from start to finish. The team clearly understood our business goals and delivered a modern, fast, and visually appealing website that truly represents our brand.',
     },
     {
-      name: 'Sneha Patil',
-      company: 'Creative Studio',
-      img: client2,
+      name: 'Arjun Mehra',
+      company: 'PixelCraft Studios',
+      img: '/images/testimonials/client2.webp',
       quote:
-        'They are extremely talented and very professional. My landing page conversions increased by 40%!',
+        'Highly professional and creative team. Our landing page performance improved significantly after launch, and the overall user experience is smooth, engaging, and conversion-focused.',
+    },
+    {
+      name: 'Chetna Thakkar',
+      company: 'UrbanBuild Solutions',
+      img: '/images/testimonials/client3.webp',
+      quote:
+        'Smooth collaboration throughout the project. Communication was clear, timelines were respected, and the final website exceeded our expectations in both design and performance.',
     },
     {
       name: 'Rahul Desai',
-      company: 'Digital Builders',
-      img: client3,
+      company: 'LuxeGlow Brands',
+      img: '/images/testimonials/client4.webp',
       quote:
-        'Super responsive and completed everything before the deadline. Highly recommended for any business!',
-    },
-    {
-      name: 'Aisha Khan',
-      company: 'Glow Cosmetics',
-      img: client4,
-      quote:
-        'Loved the branding work and the ecommerce site design. Everything was beyond expectations!',
+        'Outstanding branding and ecommerce website design. The final result looks premium, loads fast, and has helped us build a stronger and more professional online presence.',
     },
     {
       name: 'Vikram Shah',
-      company: 'Shah Enterprises',
-      img: client5,
+      company: 'GrowthEdge Marketing',
+      img: '/images/testimonials/client5.webp',
       quote:
-        'Their SEO service helped us rank on Google within weeks. Traffic and leads increased drastically.',
+        'Exceptional SEO services with measurable results. Within weeks, we noticed improvements in rankings, traffic, and lead quality. Highly recommended for serious businesses.',
     },
     {
       name: 'Priya Nair',
-      company: 'Nair Consulting',
-      img: client6,
+      company: 'SmartFlow Automation',
+      img: '/images/testimonials/client7.webp',
       quote:
-        'Professional, quick, and extremely communicative. My business website looks absolutely stunning.',
+        'A powerful and polished website experience. The team paid attention to every detail and delivered a product that aligns perfectly with our company vision and goals.',
     },
     {
       name: 'Karan Verma',
-      company: 'Verma Automations',
-      img: client7,
+      company: 'VistaCore Consulting',
+      img: '/images/testimonials/client6.webp',
       quote:
-        "Top-notch quality! Their team understands the client's vision and turns it into reality flawlessly.",
+        'Professional communicative. Our website now looks modern, trustworthy, and performs exceptionally well across all devices, helping us attract more clients and strengthen our digital presence.',
     },
   ];
 
-  const visibleCards = 3;
-  const [index, setIndex] = useState(0);
   const sliderRef = useRef(null);
-  const x = useMotionValue(0);
+  const [index, setIndex] = useState(0);
+  const [cardWidth, setCardWidth] = useState(0);
+  const [visibleCards, setVisibleCards] = useState(3);
 
-  // Calculate card width dynamically
-  const cardWidth = sliderRef.current
-    ? sliderRef.current.offsetWidth / visibleCards
-    : 0;
-
-  const maxDrag = -(testimonials.length - visibleCards) * cardWidth;
-
-  // Snap to nearest card after drag
-  const handleDragEnd = (_, info) => {
-    const offset = info.offset.x; // total dragged distance
-    const newIndex = Math.round(-x.get() / cardWidth);
-    const clampedIndex = Math.max(
-      0,
-      Math.min(newIndex, testimonials.length - visibleCards)
-    );
-    setIndex(clampedIndex);
-  };
-
-  // Update x value whenever index changes (for arrow clicks or dot clicks)
+  /* 🔹 Detect screen size (safe & minimal) */
   useEffect(() => {
-    x.set(-index * cardWidth);
-  }, [index, cardWidth, x]);
+    const updateLayout = () => {
+      const w = window.innerWidth;
+      if (w < 768) setVisibleCards(1);
+      else if (w < 1024) setVisibleCards(2);
+      else setVisibleCards(3);
+    };
 
-  const prevSlide = () =>
-    setIndex((prev) =>
-      prev === 0 ? testimonials.length - visibleCards : prev - 1
-    );
-  const nextSlide = () =>
-    setIndex((prev) => (prev + 1) % (testimonials.length - visibleCards + 1));
+    updateLayout();
+    window.addEventListener('resize', updateLayout);
+    return () => window.removeEventListener('resize', updateLayout);
+  }, []);
+
+  /* 🔹 Calculate card width only when needed */
+  useEffect(() => {
+    if (!sliderRef.current) return;
+    setCardWidth(sliderRef.current.offsetWidth / visibleCards);
+    setIndex(0);
+  }, [visibleCards]);
+
+  const maxIndex = testimonials.length - visibleCards;
+
+  const prevSlide = () => setIndex((i) => Math.max(i - 1, 0));
+  const nextSlide = () => setIndex((i) => Math.min(i + 1, maxIndex));
 
   return (
     <section id="testimonials" className="pt-28 pb-32 bg-gray-50 px-4">
       <div className="max-w-7xl mx-auto text-center">
-        <motion.h2
-          className="text-4xl md:text-5xl font-bold text-gray-900 mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          viewport={{ once: true }}
-        >
+        <h2 className="text-4xl md:text-5xl font-bold mb-16">
           What Our{' '}
           <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-green-400 bg-clip-text text-transparent">
             Clients Say
           </span>
-        </motion.h2>
+        </h2>
 
         {/* Slider */}
-        <div className="relative w-full max-w-6xl mx-auto overflow-hidden px-2">
-          <motion.div
-            ref={sliderRef}
-            className="flex gap-6 cursor-grab"
-            drag="x"
-            dragConstraints={{ left: maxDrag || 0, right: 0 }}
-            dragElastic={0.2}
-            style={{ x }}
-            onDragEnd={handleDragEnd}
-            whileTap={{ cursor: 'grabbing' }}
-            transition={{ type: 'spring', stiffness: 50, damping: 20 }}
-          >
-            {testimonials.map((t) => (
-              <motion.div
-                key={t.name}
-                className="flex-shrink-0 w-[calc(33.333%_-_1.5rem)] bg-white rounded-2xl p-6 shadow-lg min-h-[420px] hover:scale-105 hover:shadow-2xl transition-transform duration-300"
-                whileHover={{ scale: 1.05 }}
-              >
-                <img
-                  src={t.img}
-                  alt={t.name}
-                  className="w-20 h-20 rounded-full mx-auto object-cover border-4 border-white shadow-md"
-                />
-                <div className="flex justify-center mt-3 text-yellow-400">
-                  {Array(5)
-                    .fill(0)
-                    .map((_, i) => (
-                      <FaStar key={i} />
-                    ))}
-                </div>
-                <p className="text-gray-700 mt-4 text-base leading-relaxed">
-                  {t.quote}
-                </p>
-                <h3 className="mt-4 text-lg md:text-xl font-semibold text-gray-900">
-                  {t.name}
-                </h3>
-                <p className="text-gray-500">{t.company}</p>
-              </motion.div>
-            ))}
-          </motion.div>
-
+        <div className="flex items-center gap-6">
           {/* Left Arrow */}
           <button
             onClick={prevSlide}
-            className="absolute left-[-2rem] top-1/2 -translate-y-1/2 bg-gray-800 text-white shadow-md p-3 rounded-full hover:bg-gray-700 transition z-10"
+            disabled={index === 0}
+            aria-label="Previous testimonials"
+            className="p-4 rounded-full bg-gray-800 text-white disabled:opacity-30"
           >
-            <FaChevronLeft size={20} />
+            <FaChevronLeft />
           </button>
+
+          <div ref={sliderRef} className="overflow-hidden w-full">
+            <motion.div
+              className="flex will-change-transform"
+              animate={{ x: -index * cardWidth }}
+              transition={{ duration: 0.6, ease: 'easeInOut' }}
+            >
+              {testimonials.map((t) => (
+                <div
+                  key={t.name}
+                  style={{ width: cardWidth }}
+                  className="px-3 flex-shrink-0"
+                >
+                  <div className="bg-white rounded-2xl p-6 shadow-lg min-h-[420px]">
+                    {/* Optimized Image */}
+                    <img
+                      src={t.img}
+                      alt={t.name}
+                      width="80"
+                      height="80"
+                      loading="lazy"
+                      decoding="async"
+                      className="w-20 h-20 rounded-full mx-auto object-cover"
+                    />
+
+                    <div className="flex justify-center mt-3 text-yellow-400">
+                      {Array(5)
+                        .fill(0)
+                        .map((_, i) => (
+                          <FaStar key={i} />
+                        ))}
+                    </div>
+
+                    <p className="mt-4 text-gray-700 leading-relaxed text-base">
+                      {t.quote}
+                    </p>
+
+                    <h3 className="mt-4 font-semibold">{t.name}</h3>
+                    <p className="text-gray-500">{t.company}</p>
+                  </div>
+                </div>
+              ))}
+            </motion.div>
+          </div>
 
           {/* Right Arrow */}
           <button
             onClick={nextSlide}
-            className="absolute right-[-2rem] top-1/2 -translate-y-1/2 bg-gray-800 text-white shadow-md p-3 rounded-full hover:bg-gray-700 transition z-10"
+            disabled={index === maxIndex}
+            aria-label="Next testimonials"
+            className="p-4 rounded-full bg-gray-800 text-white disabled:opacity-30"
           >
-            <FaChevronRight size={20} />
+            <FaChevronRight />
           </button>
         </div>
 
         {/* Dots */}
-        <div className="flex justify-center gap-2 mt-6">
-          {testimonials
-            .slice(0, testimonials.length - visibleCards + 1)
-            .map((_, i) => (
-              <div
-                key={i}
-                onClick={() => setIndex(i)}
-                className={`w-3 h-3 rounded-full cursor-pointer transition-all duration-300 ${
-                  i === index
-                    ? 'bg-gradient-to-r from-blue-400 via-purple-500 to-green-400 scale-110'
-                    : 'bg-gray-300'
-                }`}
-              ></div>
-            ))}
+        <div className="flex justify-center mt-10 gap-3">
+          {Array.from({ length: maxIndex + 1 }).map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setIndex(i)}
+              aria-label={`Go to slide ${i + 1}`}
+              className={`w-3 h-3 rounded-full transition ${
+                i === index
+                  ? 'bg-blue-600 scale-125'
+                  : 'bg-gray-300 hover:bg-gray-400'
+              }`}
+            />
+          ))}
         </div>
       </div>
     </section>

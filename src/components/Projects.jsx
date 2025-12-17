@@ -1,105 +1,193 @@
 // src/components/Projects.jsx
 import { motion } from 'framer-motion';
-import project1 from '../assets/project1.jpg';
-import project2 from '../assets/project2.jpg';
-import project3 from '../assets/project3.jpg';
+import { useState, useEffect } from 'react';
 
 export default function Projects() {
   const projects = [
     {
-      title: 'Project Alpha',
-      shortDesc: 'Responsive Business Website',
-      image: project1,
-      link: '#',
-      gradient: 'from-blue-400 to-blue-600',
-      shadow: 'shadow-blue-400/30',
+      title: 'Personal Portfolio Website',
+      shortDesc: 'Modern personal portfolio design',
+      image: '/images/projects/1-portfolio-website.webp',
+      link: 'https://websphereindia7.github.io/Portfolio-1/',
     },
     {
-      title: 'Project Beta',
-      shortDesc: 'Creative UI/UX Design',
-      image: project2,
-      link: '#',
-      gradient: 'from-purple-400 to-purple-600',
-      shadow: 'shadow-purple-400/30',
+      title: 'Food Delivery Website',
+      shortDesc: 'Online food ordering platform',
+      image: '/images/projects/2-food-delivery-website.webp',
+      link: 'https://websphereindia7.github.io/food-delivery-1/',
     },
     {
-      title: 'Project Gamma',
-      shortDesc: 'Mobile App Development',
-      image: project3,
-      link: '#',
-      gradient: 'from-green-400 to-green-600',
-      shadow: 'shadow-green-400/30',
+      title: 'Yummy Bites Website',
+      shortDesc: 'Restaurant & food brand website',
+      image: '/images/projects/3-yummy-bites-website.webp',
+      link: 'https://websphereindia7.github.io/yummy-bites/',
+    },
+    {
+      title: 'E-Commerce Website',
+      shortDesc: 'Complete e-commerce shopping experience',
+      image: '/images/projects/4-e-commerce-website.webp',
+      link: 'https://websphereindia7.github.io/e-commerce-petalpop/',
+    },
+    {
+      title: 'Real Estate Website',
+      shortDesc: 'Property listings & real estate platform',
+      image: '/images/projects/5-real-estate-website.webp',
+      link: 'https://websphereindia7.github.io/real-estate-dreamkeyhomes/',
+    },
+    {
+      title: 'Cake Shop Website',
+      shortDesc: 'Bakery & cake shop website',
+      image: '/images/projects/6-cake-shop.webp',
+      link: 'https://websphereindia7.github.io/cake-shop-sugar-bloom/',
+    },
+    {
+      title: 'FlyHigh Travel Website',
+      shortDesc: 'Travel agency & tour booking site',
+      image: '/images/projects/7-travel-website.webp',
+      link: 'https://websphereindia7.github.io/travel-voyago/',
+    },
+    {
+      title: 'Vytal Gym Website',
+      shortDesc: 'Fitness & gym business website',
+      image: '/images/projects/8-gym-website.webp',
+      link: 'https://websphereindia7.github.io/vytalgym/',
     },
   ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [cardsPerView, setCardsPerView] = useState(3);
+
+  /* Responsive cards per view */
+  useEffect(() => {
+    const updateCardsPerView = () => {
+      if (window.innerWidth < 640) setCardsPerView(1);
+      else if (window.innerWidth < 1024) setCardsPerView(2);
+      else setCardsPerView(3);
+    };
+
+    updateCardsPerView();
+    window.addEventListener('resize', updateCardsPerView);
+    return () => window.removeEventListener('resize', updateCardsPerView);
+  }, []);
+
+  const prevSlide = () => {
+    setCurrentIndex((prev) =>
+      prev === 0 ? projects.length - cardsPerView : prev - 1
+    );
+  };
+
+  const nextSlide = () => {
+    setCurrentIndex((prev) =>
+      prev === projects.length - cardsPerView ? 0 : prev + 1
+    );
+  };
+
+  const goToDot = (index) => setCurrentIndex(index);
+  const totalDots = projects.length - cardsPerView + 1;
 
   return (
     <section
       id="projects"
-      className="py-28 px-6 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden"
+      className="py-28 px-6 bg-gradient-to-b from-gray-50 to-white"
     >
       {/* Section Title */}
       <motion.h2
         className="text-4xl md:text-5xl font-bold text-gray-900 text-center mb-16"
-        initial={{ opacity: 0, x: 20 }}
-        whileInView={{ opacity: 1, x: 0 }}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
         viewport={{ once: true }}
       >
         Our{' '}
-        <span className="text-gradient bg-gradient-to-r from-blue-400 via-purple-500 to-green-400 bg-clip-text text-transparent">
+        <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-green-400 bg-clip-text text-transparent">
           Projects
         </span>
       </motion.h2>
 
-      <div className="grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
-        {projects.map((project, index) => (
-          <motion.div
-            key={index}
-            className={`relative rounded-3xl overflow-hidden cursor-pointer bg-gradient-to-br ${project.gradient} ${project.shadow} p-1`}
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{
-              duration: 0.7,
-              delay: index * 0.2,
-              ease: 'easeOut',
-            }}
-            viewport={{ once: true }}
-            whileHover={{
-              scale: [1, 1.04, 1.02], // subtle pulse
-              y: -3,
-              boxShadow: '0 18px 35px rgba(0,0,0,0.18)',
-              transition: { duration: 0.4, ease: 'easeInOut' },
-            }}
-          >
-            <div className="bg-white rounded-3xl overflow-hidden">
-              {/* Project Image */}
-              <div className="relative">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 rounded-3xl"></div>
-              </div>
+      {/* Carousel */}
+      <div className="relative max-w-7xl mx-auto flex items-center">
+        {/* Left Arrow */}
+        <button
+          onClick={prevSlide}
+          className="absolute left-0 z-10 bg-white p-3 rounded-full shadow-lg hover:bg-gray-100 transition"
+          aria-label="Previous projects"
+        >
+          ⬅️
+        </button>
 
-              {/* Project Info */}
-              <div className="p-7 text-left">
-                <motion.h3
-                  className="text-2xl font-semibold mb-3 text-gray-900"
-                  whileHover={{ scale: 1.03 }}
-                >
-                  {project.title}
-                </motion.h3>
-                <p className="text-gray-600 mb-6">{project.shortDesc}</p>
-                <a
-                  href={project.link}
-                  className="inline-block px-6 py-2.5 bg-blue-600 text-white rounded-full font-medium shadow-md hover:bg-blue-700 transition-all duration-300"
-                >
-                  View Project →
-                </a>
-              </div>
-            </div>
-          </motion.div>
+        {/* Cards */}
+        <div className="flex overflow-hidden w-full gap-6">
+          {projects
+            .slice(currentIndex, currentIndex + cardsPerView)
+            .map((project, idx) => (
+              <motion.div
+                key={currentIndex + idx}
+                className={`flex-shrink-0 w-full ${
+                  cardsPerView === 1
+                    ? ''
+                    : cardsPerView === 2
+                    ? 'md:w-1/2'
+                    : 'lg:w-1/3'
+                }`}
+                whileHover={{ scale: 1.02, y: -4 }}
+              >
+                <div className="bg-white rounded-3xl shadow-lg overflow-hidden h-full flex flex-col">
+                  {/* Optimized Image */}
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    width="600"
+                    height="400"
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-64 object-cover"
+                  />
+
+                  <div className="p-5 flex flex-col flex-grow">
+                    <h3 className="text-2xl font-semibold mb-2">
+                      {project.title}
+                    </h3>
+                    <p className="text-gray-600 mb-4">{project.shortDesc}</p>
+
+                    <div>
+                      <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-block px-4 py-2 bg-blue-600 text-white rounded-full font-medium hover:bg-blue-700 transition text-sm"
+                      >
+                        View Project →
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+        </div>
+
+        {/* Right Arrow */}
+        <button
+          onClick={nextSlide}
+          className="absolute right-0 z-10 bg-white p-3 rounded-full shadow-lg hover:bg-gray-100 transition"
+          aria-label="Next projects"
+        >
+          ➡️
+        </button>
+      </div>
+
+      {/* Dots */}
+      <div className="flex justify-center gap-2 mt-8">
+        {Array.from({ length: totalDots }).map((_, idx) => (
+          <button
+            key={idx}
+            onClick={() => goToDot(idx)}
+            className={`h-2.5 w-2.5 rounded-full transition-all duration-300 ${
+              currentIndex === idx
+                ? 'bg-blue-600 scale-125'
+                : 'bg-gray-300 hover:bg-gray-400'
+            }`}
+            aria-label={`Go to projects group ${idx + 1}`}
+          />
         ))}
       </div>
     </section>

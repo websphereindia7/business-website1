@@ -1,7 +1,6 @@
 // src/components/Features.jsx
 import { motion } from 'framer-motion';
 import { FaBolt, FaUsersCog, FaDollarSign, FaHeadset } from 'react-icons/fa';
-import bannerImg from '../assets/features-banner.jpg';
 
 export default function Features() {
   const features = [
@@ -39,8 +38,9 @@ export default function Features() {
           className="rounded-3xl overflow-hidden shadow-2xl"
         >
           <img
-            src={bannerImg}
+            src="/images/features-banner.webp"
             alt="Why Choose Us"
+            loading="lazy"
             className="w-full h-full object-cover"
           />
         </motion.div>
@@ -52,7 +52,6 @@ export default function Features() {
           transition={{ duration: 0.8, delay: 0.1 }}
           viewport={{ once: true }}
         >
-          {/* Title */}
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8 leading-tight">
             Why{' '}
             <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-green-400 bg-clip-text text-transparent">
@@ -65,7 +64,6 @@ export default function Features() {
             creativity, and years of professional experience.
           </p>
 
-          {/* Feature List */}
           <div className="space-y-6">
             {features.map((item, index) => (
               <motion.div

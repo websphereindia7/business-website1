@@ -4,7 +4,6 @@ import {
   EyeIcon,
   ShieldCheckIcon,
 } from '@heroicons/react/24/outline';
-import aboutImage from '../assets/about-image.jpg';
 import { motion } from 'framer-motion';
 
 export default function About() {
@@ -39,12 +38,12 @@ export default function About() {
     >
       {/* Floating Background Shapes */}
       <motion.div
-        className="absolute w-72 h-72 rounded-full bg-blue-300/20 top-10 left-20 filter blur-3xl"
+        className="absolute w-72 h-72 rounded-full bg-blue-300/20 top-10 left-20 blur-3xl"
         animate={{ y: [0, 25, 0], x: [0, 15, 0] }}
         transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
       />
       <motion.div
-        className="absolute w-96 h-96 rounded-full bg-purple-300/20 bottom-10 right-20 filter blur-3xl"
+        className="absolute w-96 h-96 rounded-full bg-purple-300/20 bottom-10 right-20 blur-3xl"
         animate={{ y: [0, -25, 0], x: [0, -15, 0] }}
         transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
       />
@@ -59,8 +58,9 @@ export default function About() {
           viewport={{ once: true }}
         >
           <img
-            src={aboutImage}
+            src="/images/about-image.webp"
             alt="About CodeVista Digital"
+            loading="lazy"
             className="rounded-3xl shadow-2xl w-full object-cover hover:scale-105 transition-transform duration-500"
           />
         </motion.div>
@@ -112,7 +112,7 @@ export default function About() {
             {cards.map((item, index) => (
               <motion.div
                 key={index}
-                className={`flex flex-col items-center sm:items-start text-center sm:text-left p-8 rounded-3xl bg-gradient-to-br ${item.gradient} ${item.shadow} cursor-pointer transition-transform`}
+                className={`flex flex-col items-center sm:items-start text-center sm:text-left p-8 rounded-3xl bg-gradient-to-br ${item.gradient} ${item.shadow}`}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 + index * 0.2 }}
@@ -123,14 +123,9 @@ export default function About() {
                   boxShadow: '0 25px 50px rgba(0,0,0,0.2)',
                 }}
               >
-                <motion.div
-                  className="mb-4 text-white"
-                  whileHover={{ scale: 1.2, rotate: 10 }}
-                  transition={{ type: 'spring', stiffness: 200 }}
-                >
+                <div className="mb-4 text-white">
                   <item.icon className="h-12 w-12" />
-                </motion.div>
-
+                </div>
                 <h4 className="font-semibold text-xl mb-3 text-white">
                   {item.title}
                 </h4>
