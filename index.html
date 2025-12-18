@@ -1,30 +1,44 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
   <head>
+    <!-- ✅ Basic Meta -->
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <title>CodeVista Digital</title>
+    <!-- ✅ SEO -->
+    <title>CodeVista Digital | Modern Web Development</title>
     <meta
       name="description"
-      content="Professional web, branding & SEO services"
+      content="CodeVista Digital builds fast, modern, and responsive websites using React and Tailwind CSS."
     />
 
-    <!-- ✅ PRELOAD HERO IMAGE (CRITICAL FOR PERFORMANCE) -->
-    <link rel="preload" as="image" href="/images/hero.webp" type="image/webp" />
+    <!-- ✅ Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
 
-    <!-- Font Awesome Icons -->
+    <!-- ✅ PRELOAD HERO IMAGE (CRITICAL – DO THIS ONCE ONLY) -->
+    <link
+      rel="preload"
+      as="image"
+      href="/images/hero.webp"
+      type="image/webp"
+      fetchpriority="high"
+    />
+
+    <!-- ✅ Font Awesome (CDN – non-blocking) -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
     />
   </head>
 
   <body>
+    <!-- ✅ React Root -->
     <div id="root"></div>
 
-    <!-- React Entry -->
+    <!-- ✅ React Entry (Vite) -->
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

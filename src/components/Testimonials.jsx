@@ -1,6 +1,8 @@
+// src/components/Testimonials.jsx
 import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaStar, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import OptimizedImage from './OptimizedImage';
 
 export default function Testimonials() {
   const testimonials = [
@@ -40,27 +42,27 @@ export default function Testimonials() {
         'Exceptional SEO services with measurable results. Within weeks, we noticed improvements in rankings, traffic, and lead quality. Highly recommended for serious businesses.',
     },
     {
-      name: 'Priya Nair',
-      company: 'SmartFlow Automation',
-      img: '/images/testimonials/client7.webp',
-      quote:
-        'A powerful and polished website experience. The team paid attention to every detail and delivered a product that aligns perfectly with our company vision and goals.',
-    },
-    {
       name: 'Karan Verma',
       company: 'VistaCore Consulting',
       img: '/images/testimonials/client6.webp',
       quote:
-        'Professional communicative. Our website now looks modern, trustworthy, and performs exceptionally well across all devices, helping us attract more clients and strengthen our digital presence.',
+        'Professional and communicative. Our website now looks modern, trustworthy, and performs exceptionally well across all devices.',
+    },
+    {
+      name: 'Priya Nair',
+      company: 'SmartFlow Automation',
+      img: '/images/testimonials/client7.webp',
+      quote:
+        'A powerful and polished website experience. The team paid attention to every detail and delivered a product that aligns perfectly with our vision.',
     },
   ];
 
   const sliderRef = useRef(null);
   const [index, setIndex] = useState(0);
-  const [cardWidth, setCardWidth] = useState(0);
   const [visibleCards, setVisibleCards] = useState(3);
+  const [cardWidth, setCardWidth] = useState(0);
 
-  /* 🔹 Detect screen size (safe & minimal) */
+  /* Responsive cards count */
   useEffect(() => {
     const updateLayout = () => {
       const w = window.innerWidth;
@@ -74,7 +76,7 @@ export default function Testimonials() {
     return () => window.removeEventListener('resize', updateLayout);
   }, []);
 
-  /* 🔹 Calculate card width only when needed */
+  /* Calculate width safely */
   useEffect(() => {
     if (!sliderRef.current) return;
     setCardWidth(sliderRef.current.offsetWidth / visibleCards);
@@ -83,24 +85,27 @@ export default function Testimonials() {
 
   const maxIndex = testimonials.length - visibleCards;
 
-  const prevSlide = () => setIndex((i) => Math.max(i - 1, 0));
-  const nextSlide = () => setIndex((i) => Math.min(i + 1, maxIndex));
-
   return (
     <section id="testimonials" className="pt-28 pb-32 bg-gray-50 px-4">
       <div className="max-w-7xl mx-auto text-center">
-        <h2 className="text-4xl md:text-5xl font-bold mb-16">
+        {/* ✅ Animated Title */}
+        <motion.h2
+          className="text-4xl md:text-5xl font-bold mb-16"
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
           What Our{' '}
           <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-green-400 bg-clip-text text-transparent">
             Clients Say
           </span>
-        </h2>
+        </motion.h2>
 
-        {/* Slider */}
         <div className="flex items-center gap-6">
           {/* Left Arrow */}
           <button
-            onClick={prevSlide}
+            onClick={() => setIndex((i) => Math.max(i - 1, 0))}
             disabled={index === 0}
             aria-label="Previous testimonials"
             className="p-4 rounded-full bg-gray-800 text-white disabled:opacity-30"
@@ -108,39 +113,38 @@ export default function Testimonials() {
             <FaChevronLeft />
           </button>
 
+          {/* Slider */}
           <div ref={sliderRef} className="overflow-hidden w-full">
             <motion.div
-              className="flex will-change-transform"
+              className="flex"
               animate={{ x: -index * cardWidth }}
               transition={{ duration: 0.6, ease: 'easeInOut' }}
             >
-              {testimonials.map((t) => (
+              {testimonials.map((t, idx) => (
                 <div
                   key={t.name}
                   style={{ width: cardWidth }}
                   className="px-3 flex-shrink-0"
                 >
                   <div className="bg-white rounded-2xl p-6 shadow-lg min-h-[420px]">
-                    {/* Optimized Image */}
-                    <img
+                    <OptimizedImage
                       src={t.img}
                       alt={t.name}
-                      width="80"
-                      height="80"
-                      loading="lazy"
-                      decoding="async"
+                      width={80}
+                      height={80}
                       className="w-20 h-20 rounded-full mx-auto object-cover"
+                      placeholder="blur"
+                      loading={idx < visibleCards ? 'eager' : 'lazy'}
+                      priority={idx < visibleCards}
                     />
 
                     <div className="flex justify-center mt-3 text-yellow-400">
-                      {Array(5)
-                        .fill(0)
-                        .map((_, i) => (
-                          <FaStar key={i} />
-                        ))}
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <FaStar key={i} />
+                      ))}
                     </div>
 
-                    <p className="mt-4 text-gray-700 leading-relaxed text-base">
+                    <p className="mt-4 text-gray-700 leading-relaxed">
                       {t.quote}
                     </p>
 
@@ -154,7 +158,7 @@ export default function Testimonials() {
 
           {/* Right Arrow */}
           <button
-            onClick={nextSlide}
+            onClick={() => setIndex((i) => Math.min(i + 1, maxIndex))}
             disabled={index === maxIndex}
             aria-label="Next testimonials"
             className="p-4 rounded-full bg-gray-800 text-white disabled:opacity-30"

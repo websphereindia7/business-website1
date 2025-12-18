@@ -1,6 +1,7 @@
 // src/components/Projects.jsx
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import OptimizedImage from './OptimizedImage';
 
 export default function Projects() {
   const projects = [
@@ -133,14 +134,15 @@ export default function Projects() {
               >
                 <div className="bg-white rounded-3xl shadow-lg overflow-hidden h-full flex flex-col">
                   {/* Optimized Image */}
-                  <img
+                  <OptimizedImage
                     src={project.image}
                     alt={project.title}
-                    width="600"
-                    height="400"
-                    loading="lazy"
-                    decoding="async"
+                    width={600}
+                    height={400}
                     className="w-full h-64 object-cover"
+                    placeholder="blur"
+                    loading={idx < cardsPerView ? 'eager' : 'lazy'}
+                    priority={idx < cardsPerView} // above-the-fold priority
                   />
 
                   <div className="p-5 flex flex-col flex-grow">

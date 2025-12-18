@@ -5,6 +5,7 @@ import {
   ShieldCheckIcon,
 } from '@heroicons/react/24/outline';
 import { motion } from 'framer-motion';
+import OptimizedImage from './OptimizedImage';
 
 export default function About() {
   const cards = [
@@ -57,10 +58,12 @@ export default function About() {
           transition={{ duration: 1 }}
           viewport={{ once: true }}
         >
-          <img
+          <OptimizedImage
             src="/images/about-image.webp"
             alt="About CodeVista Digital"
-            loading="lazy"
+            width={800}
+            height={600}
+            placeholder="blur"
             className="rounded-3xl shadow-2xl w-full object-cover hover:scale-105 transition-transform duration-500"
           />
         </motion.div>

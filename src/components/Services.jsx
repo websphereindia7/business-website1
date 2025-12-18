@@ -1,6 +1,7 @@
 // src/components/Services.jsx
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import OptimizedImage from './OptimizedImage';
 
 export default function Services() {
   const navigate = useNavigate();
@@ -104,15 +105,16 @@ export default function Services() {
             }}
           >
             <div className="bg-white rounded-3xl p-6 flex flex-col items-center text-center h-full min-h-[440px] shadow-lg">
-              {/* Feature Image */}
-              <img
+              {/* Optimized Feature Image */}
+              <OptimizedImage
                 src={service.img}
                 alt={service.alt}
-                loading="lazy"
-                decoding="async"
-                width="400"
-                height="160"
+                width={400}
+                height={160}
                 className="rounded-xl mb-6 w-full h-40 object-cover shadow-md"
+                placeholder="blur"
+                loading={index === 0 ? 'eager' : 'lazy'} // eager for first card
+                priority={index === 0} // first card is above-the-fold
               />
 
               {/* Title */}
