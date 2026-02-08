@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./index.html", "./src/**/*.{js,jsx}"],
+  content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
       colors: {
@@ -9,12 +9,12 @@ export default {
         surface: "#f9fafb",
 
         /* Text */
-        primary: "#0f172a", // main headings
-        secondary: "#475569", // body text
+        primary: "#0f172a",
+        secondary: "#475569",
 
         /* Accent (Brand color) */
         accent: {
-          DEFAULT: "#6366f1", // indigo
+          DEFAULT: "#6366f1",
           light: "#eef2ff",
           dark: "#4f46e5",
         },

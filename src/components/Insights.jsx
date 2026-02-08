@@ -2,129 +2,96 @@
 import { ArrowUpRight } from "lucide-react";
 import FadeIn from "./FadeIn";
 
-/* Accent colors inspired by Services section */
-const insightColors = [
-  {
-    accent: "bg-indigo-600",
-    iconBg: "bg-indigo-50 text-indigo-600",
-    hoverIcon: "group-hover:bg-indigo-600 group-hover:text-white",
-  },
-  {
-    accent: "bg-emerald-600",
-    iconBg: "bg-emerald-50 text-emerald-600",
-    hoverIcon: "group-hover:bg-emerald-600 group-hover:text-white",
-  },
-  {
-    accent: "bg-pink-600",
-    iconBg: "bg-pink-50 text-pink-600",
-    hoverIcon: "group-hover:bg-pink-600 group-hover:text-white",
-  },
-];
-
 const insights = [
   {
     title: "Why Every Business Needs a Website",
     excerpt:
-      "A professional website builds trust, improves visibility, and helps customers take your business seriously in today’s digital-first world.",
+      "A strong website builds trust, improves visibility, and supports long-term growth.",
     href: "/insights/business-website",
+    color: "bg-indigo-600",
   },
   {
     title: "Website vs Social Media for Business",
     excerpt:
-      "Many businesses rely only on social media. Learn why a website gives you more control, credibility, and long-term growth.",
+      "Social platforms help reach users, but a website gives full control and credibility.",
     href: "/insights/website-vs-social-media",
+    color: "bg-emerald-600",
   },
   {
     title: "What Makes a Website Look Professional",
     excerpt:
-      "From layout and typography to speed and clarity, discover the key elements that shape a strong first impression online.",
+      "Clear layout, good spacing, fast speed, and clarity shape strong impressions.",
     href: "/insights/professional-website",
+    color: "bg-pink-600",
+  },
+  {
+    title: "How Websites Help You Get Clients",
+    excerpt:
+      "A website works continuously to turn visitors into real enquiries.",
+    href: "/insights/website-clients",
+    color: "bg-yellow-500",
+  },
+  {
+    title: "Mistakes That Hurt Website Credibility",
+    excerpt: "Design and content mistakes can silently push customers away.",
+    href: "/insights/website-mistakes",
+    color: "bg-cyan-600",
+  },
+  {
+    title: "Why First Impressions Matter Online",
+    excerpt: "Users decide trust within seconds of landing on your website.",
+    href: "/insights/first-impression",
+    color: "bg-violet-600",
   },
 ];
 
 export default function Insights() {
   return (
-    <section className="relative py-4 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 mt-6 md:mt-10 relative z-10">
-        {/* Section Header */}
+    <section className="relative py-14 -mt-12">
+      <div className="max-w-7xl mx-auto px-6">
         <FadeIn>
-          <div className="max-w-2xl mb-12 text-center mx-auto">
-            <span className="text-sm font-medium uppercase tracking-wider text-indigo-600">
+          <div className="text-center mb-10">
+            <span className="text-sm uppercase tracking-wider font-medium text-indigo-600">
               Insights
             </span>
-
-            <h2 className="mt-3 text-3xl md:text-4xl font-bold text-gray-900">
-              Practical insights for growing online
+            <h2 className="mt-2 text-3xl md:text-4xl font-bold text-gray-900">
+              Smart ideas for modern businesses
             </h2>
-
-            <p className="mt-3 text-gray-600 leading-relaxed">
-              Clear, business-focused insights to help you understand the value
-              of building a strong and trustworthy online presence.
+            <p className="mt-2 max-w-2xl mx-auto text-gray-600">
+              Practical knowledge crafted to help you build trust and grow
+              online.
             </p>
           </div>
         </FadeIn>
 
-        {/* Insights Grid */}
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 -mt-4">
-          {insights.map((item, index) => {
-            const color = insightColors[index % insightColors.length];
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {insights.map((item, index) => (
+            <FadeIn key={index} delay={index * 0.07}>
+              <a
+                href={item.href}
+                className="group block rounded-2xl border border-gray-200 bg-white overflow-hidden
+                           transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+              >
+                <div className={`h-3 w-full ${item.color}`} />
 
-            return (
-              <FadeIn key={index} delay={index * 0.1}>
-                <article className="group bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
-                  {/* Top accent stripe */}
-                  <div className={`h-3 ${color.accent}`} />
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold text-gray-900 leading-snug">
+                    {item.title}
+                  </h3>
 
-                  {/* Top Image / Visual */}
-                  <a
-                    href={item.href}
-                    className="flex h-44 items-center justify-center bg-gray-50"
-                  >
-                    <div
-                      className={`inline-flex h-14 w-14 items-center justify-center rounded-full ${color.iconBg} transition-all duration-300 ${color.hoverIcon} group-hover:scale-110`}
-                    >
-                      <ArrowUpRight className="h-6 w-6" />
-                    </div>
-                  </a>
+                  <p className="mt-2 text-[15px] text-gray-600 leading-relaxed">
+                    {item.excerpt}
+                  </p>
 
-                  {/* Content */}
-                  <div className="p-7 text-center">
-                    <h3 className="mb-3 text-lg font-semibold text-gray-900 group-hover:text-indigo-600 transition-colors">
-                      {item.title}
-                    </h3>
-
-                    {/* Divider */}
-                    <div className={`mx-auto mb-4 h-px w-12 ${color.accent}`} />
-
-                    {/* Clickable Subtext */}
-                    <a
-                      href={item.href}
-                      className="inline-flex items-start gap-2 text-sm text-gray-600 hover:text-indigo-600 transition-colors"
-                    >
-                      <span>{item.excerpt}</span>
-                      <ArrowUpRight className="mt-0.5 h-4 w-4 flex-shrink-0" />
-                    </a>
+                  <div className="mt-4 inline-flex items-center gap-1 text-[15px] font-medium text-gray-800 group-hover:text-indigo-600 transition-colors">
+                    Explore insight
+                    <ArrowUpRight className="h-4.5 w-4.5 transition-transform duration-300 group-hover:translate-x-1" />
                   </div>
-                </article>
-              </FadeIn>
-            );
-          })}
+                </div>
+              </a>
+            </FadeIn>
+          ))}
         </div>
-
-        {/* Load More CTA */}
-        <FadeIn delay={0.4}>
-          <div className="mt-14 flex justify-center">
-            <button
-              type="button"
-              className="group inline-flex items-center gap-2 rounded-full border border-gray-300 px-8 py-3 text-sm font-medium text-gray-700 transition-all duration-300 hover:border-indigo-600 hover:text-indigo-600"
-            >
-              Load More
-              <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">
-                →
-              </span>
-            </button>
-          </div>
-        </FadeIn>
       </div>
     </section>
   );

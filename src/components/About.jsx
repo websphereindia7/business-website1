@@ -33,7 +33,7 @@ export default function About() {
               />
             </div>
 
-            {/* CTA Button under illustration */}
+            {/* CTA Button */}
             <a
               href="#contact"
               className="group inline-flex items-center gap-2 rounded-full bg-indigo-600 px-7 py-3 text-sm font-medium text-white transition-all duration-300 hover:bg-indigo-700 hover:scale-105"
@@ -53,21 +53,20 @@ export default function About() {
               About Me
             </span>
 
-            <h2 className="mt-4 text-3xl sm:text-4xl font-bold text-primary leading-tight text-center lg:text-left">
+            <h2 className="mt-4 text-3xl sm:text-4xl font-bold text-primary leading-tight">
               Creating digital experiences that drive results
             </h2>
 
             <p className="mt-6 text-lg text-secondary leading-relaxed">
               I help businesses and startups build modern, reliable websites
               that look professional, load fast, and convert visitors into
-              customers. I focus on creating clean, scalable interfaces that
-              support real business goals.
+              customers.
             </p>
 
             <p className="mt-4 text-lg text-secondary leading-relaxed">
               I craft intuitive, scalable websites with clean design and modern
               frontend development, delivering maintainable solutions that drive
-              results with clarity and long-term value.
+              results with long-term value.
             </p>
 
             {/* Stats */}
@@ -78,9 +77,7 @@ export default function About() {
                 return (
                   <FadeIn key={stat.label} delay={index * 0.1}>
                     <div className="group bg-white border border-border rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
-                      {/* Top accent stripe (full width) */}
                       <div className={`h-3 w-full ${color.accent}`} />
-
                       <div className="p-6 text-center">
                         <h3 className="text-2xl font-bold text-primary">
                           {stat.value}

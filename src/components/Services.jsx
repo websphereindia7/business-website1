@@ -1,118 +1,79 @@
 import { Layout, Users, Gauge } from "lucide-react";
 import FadeIn from "./FadeIn";
 
-/* Accent colors for each service card */
-const serviceColors = [
-  {
-    accent: "bg-indigo-600",
-    iconBg: "bg-indigo-50 text-indigo-600",
-    hoverIcon: "group-hover:bg-indigo-600 group-hover:text-white",
-  },
-  {
-    accent: "bg-emerald-600",
-    iconBg: "bg-emerald-50 text-emerald-600",
-    hoverIcon: "group-hover:bg-emerald-600 group-hover:text-white",
-  },
-  {
-    accent: "bg-pink-600",
-    iconBg: "bg-pink-50 text-pink-600",
-    hoverIcon: "group-hover:bg-pink-600 group-hover:text-white",
-  },
-];
-
 const services = [
   {
     icon: Layout,
     title: "Business Website Development",
     description:
-      "Professional, responsive websites that build credibility, support your brand, and convert visitors into leads.",
+      "Professional websites that boost credibility, engage visitors effectively, and drive conversions.",
+    gradient: "from-indigo-500 to-indigo-400",
   },
   {
     icon: Users,
     title: "User-Focused Web Experiences",
     description:
-      "Clean layouts and intuitive user flows that guide visitors naturally and make your website easy and enjoyable to use.",
+      "Intuitive layouts and smooth flows that guide users naturally and delightfully interact with them.",
+    gradient: "from-emerald-500 to-emerald-400",
   },
   {
     icon: Gauge,
-    title: "Performance & Website Optimization",
+    title: "Performance & Optimization",
     description:
-      "Speed optimization, responsiveness improvements, and maintenance to keep your website fast, secure, and reliable.",
+      "Speed, reliability, and security enhancements for ensuring consistently top-notch performance.",
+    gradient: "from-pink-500 to-pink-400",
   },
 ];
 
 export default function Services() {
   return (
-    <section id="services" className="relative py-4  overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+    <section id="services" className="-mt-8 py-20">
+      <div className="max-w-7xl mx-auto px-6">
         {/* Section Header */}
         <FadeIn>
-          <div className="max-w-2xl mb-12 text-center mx-auto">
-            <span className="text-sm font-medium uppercase tracking-wider text-indigo-600">
+          <div className="text-center mb-12">
+            <span className="text-sm font-medium uppercase tracking-wider text-gray-500">
               Services
             </span>
-
-            <h2 className="mt-3 text-3xl md:text-4xl font-bold text-gray-900">
-              Empowering businesses to succeed online
+            <h2 className="mt-2 text-3xl md:text-4xl font-bold text-gray-900">
+              Innovative services for your business
             </h2>
-
-            <p className="mt-3 text-gray-600 leading-relaxed">
-              Creating websites that build trust, engage users, and drive
+            <p className="mt-4 mb-24 text-gray-600 max-w-2xl mx-auto">
+              Explore our services, designed to deliver impact, performance, and
               growth.
             </p>
           </div>
         </FadeIn>
 
-        {/* Services Grid */}
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 -mt-5">
-          {services.map((service, index) => {
-            const color = serviceColors[index % serviceColors.length];
-
-            return (
-              <FadeIn key={index} delay={index * 0.1}>
-                <div className="group bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
-                  {/* Top accent stripe */}
-                  <div className={`h-3 ${color.accent}`} />
-
-                  {/* Card content */}
-                  <div className="p-7 text-center">
-                    {/* Icon */}
-                    <div
-                      className={`mb-6 inline-flex h-16 w-16 items-center justify-center rounded-full ${color.iconBg} transition-all duration-300 ${color.hoverIcon} group-hover:scale-110 mx-auto`}
-                    >
-                      <service.icon className="h-8 w-8" />
-                    </div>
-
-                    {/* Title */}
-                    <h3 className="mb-3 text-xl font-semibold text-gray-900">
-                      {service.title}
-                    </h3>
-
-                    {/* Divider */}
-                    <div className={`mx-auto mb-4 h-px w-12 ${color.accent}`} />
-
-                    {/* Description */}
-                    <p className="text-gray-600 leading-relaxed">
-                      {service.description}
-                    </p>
-                  </div>
+        {/* Vertical Cards - Moved More Up, Increased Gap & Width */}
+        <div className="-mt-16 flex flex-col md:flex-row gap-12 justify-center">
+          {services.map((service, index) => (
+            <FadeIn key={index} delay={index * 0.1}>
+              <div
+                className={`bg-gradient-to-br ${service.gradient} text-white rounded-3xl p-8 w-full md:w-96 transform transition-all duration-500 hover:scale-105 hover:translate-y-1 shadow-2xl`}
+              >
+                <div className="flex items-center justify-center mb-6">
+                  <service.icon className="h-10 w-10" />
                 </div>
-              </FadeIn>
-            );
-          })}
+                <h3 className="text-xl md:text-2xl font-semibold mb-3">
+                  {service.title}
+                </h3>
+                <p className="text-white/90 leading-relaxed">
+                  {service.description}
+                </p>
+              </div>
+            </FadeIn>
+          ))}
         </div>
 
         {/* CTA */}
-        <FadeIn delay={0.4}>
-          <div className="mt-12 flex justify-center">
+        <FadeIn delay={0.5}>
+          <div className="mt-12 text-center">
             <a
               href="#contact"
-              className="group inline-flex items-center gap-2 rounded-full bg-indigo-600 px-7 py-3 text-sm font-medium text-white transition-all duration-300 hover:bg-indigo-700 hover:scale-105"
+              className="inline-block rounded-full bg-indigo-600 px-8 py-3 text-white font-medium transition-all duration-300 hover:bg-indigo-700 hover:scale-105"
             >
-              Build a Website
-              <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">
-                →
-              </span>
+              Build a Website →
             </a>
           </div>
         </FadeIn>

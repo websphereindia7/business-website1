@@ -25,12 +25,9 @@ export default function Contact() {
       setStatus("success");
       e.target.reset();
 
-      // Automatically hide success message after 5 seconds
       setTimeout(() => setStatus(""), 5000);
     } catch {
       setStatus("error");
-
-      // Automatically hide error message after 5 seconds
       setTimeout(() => setStatus(""), 5000);
     } finally {
       setLoading(false);
@@ -93,7 +90,7 @@ export default function Contact() {
                   </a>
 
                   <a
-                    href="mailto:jaisan@email.com"
+                    href="mailto:websphereindia7@gmail.com"
                     className="p-3 rounded-full bg-accent text-white hover:bg-accent-dark transition"
                   >
                     <Mail size={18} />
@@ -109,10 +106,8 @@ export default function Contact() {
                   width="100%"
                   height="200"
                   style={{ border: 0, borderRadius: "0.5rem" }}
-                  allowFullScreen=""
                   loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                ></iframe>
+                />
               </div>
             </div>
           </div>
@@ -120,29 +115,28 @@ export default function Contact() {
           {/* RIGHT FORM */}
           <div>
             <form className="space-y-4" onSubmit={handleSubmit}>
-              <div className="grid grid-cols-1 sm:grid-cols-1 gap-4">
-                <div>
-                  <label className="block text-sm text-secondary mb-1">
-                    Name *
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    required
-                    className="w-full rounded-lg border border-border px-4 py-3 focus:ring-2 focus:ring-accent"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm text-secondary mb-1">
-                    Email *
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    required
-                    className="w-full rounded-lg border border-border px-4 py-3 focus:ring-2 focus:ring-accent"
-                  />
-                </div>
+              <div>
+                <label className="block text-sm text-secondary mb-1">
+                  Name *
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  required
+                  className="w-full rounded-lg border border-border px-4 py-3 focus:ring-2 focus:ring-accent"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm text-secondary mb-1">
+                  Email *
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  className="w-full rounded-lg border border-border px-4 py-3 focus:ring-2 focus:ring-accent"
+                />
               </div>
 
               <div>
@@ -182,6 +176,7 @@ export default function Contact() {
                   Message sent successfully!
                 </p>
               )}
+
               {status === "error" && (
                 <p className="text-red-600 text-sm">
                   Something went wrong. Please try again.

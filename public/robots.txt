@@ -1,0 +1,15 @@
+# Allow all crawlers
+User-agent: *
+
+# Disallow private or admin paths (if any)
+# Disallow: /admin/
+# Disallow: /login/
+
+# Allow everything else
+Allow: /
+
+# Specify the location of your sitemap
+Sitemap: https://business-website1.vercel.app/sitemap.xml
+
+# Optional crawl-delay (in seconds) for polite crawling
+# Crawl-delay: 10

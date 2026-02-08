@@ -43,7 +43,7 @@ export default function Skills() {
             {/* Left Content */}
             <div className="max-w-xl flex flex-col justify-center h-full">
               <span className="text-sm uppercase tracking-widest text-secondary">
-                Technical Expertise
+                Skills
               </span>
 
               <h2 className="mt-4 text-3xl sm:text-4xl font-bold text-primary leading-tight">
